@@ -1,3 +1,6 @@
+mod augmenters;
+mod langs;
+
 pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
