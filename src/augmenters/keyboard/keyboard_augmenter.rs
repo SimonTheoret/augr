@@ -1,3 +1,5 @@
+use crate::augmenters::Augmenter;
+use crate::error_strategy::ErrorStrategy;
 use crate::langs::KBAugmentationMap;
 use anyhow::anyhow;
 use derive_builder::Builder;
@@ -13,41 +15,50 @@ struct KeyboardAugmenter {
     kb_augmentation_map: KBAugmentationMap,
     // Probability of applying an augmentation on a word
     augmentation_proba: f32,
+    error_strategy: ErrorStrategy,
 }
 
-impl KeyboardAugmenter {
-    fn augment(mut self) -> Self {
-        self.modified_content = vec![];
+impl Augmenter for KeyboardAugmenter {
+    fn augment(mut self) -> anyhow::Result<()> {
+        self.modified_content = Vec::with_capacity(self.content.capacity());
+        let mut strat = self.error_strategy;
         for example in &self.content {
             let mut current_example = String::from("");
-            for (i, cluster) in UnicodeSegmentation::grapheme_indices(example.as_str(), true) {
+            for cluster in UnicodeSegmentation::graphemes(example.as_str(), true) {
                 let mut rng = rand::thread_rng();
                 let rand_num: f32 = rng.gen();
                 if rand_num > 1. - self.augmentation_proba
                     && self.cluster_in_augmentation_map(cluster)
                 {
                     let replacement = self.pick_replacement(&mut rng);
-                    match replacement {
-                        Ok(modification) => {
-                            current_example.push_str(modification);
-                        }
-                        Err(err) => {
-                            current_example.push_str(cluster);
-                            eprintln!("{}", err);
-                        }
-                    }
+                    let net_replacement = strat.apply(replacement, Some(cluster));
+
+                    current_example.push_str(net_replacement?);
+
+                    // match replacement {
+                    //     Ok(modification) => {
+                    //         current_example.push_str(modification);
+                    //     }
+                    //     Err(err) => {
+                    //         current_example.push_str(cluster);
+                    //         eprintln!("{}", err);
+                    //     }
+                    // }
                 } else {
                     current_example.push_str(cluster);
                 }
             }
             self.modified_content.push(current_example)
         }
-        self
+        Ok(())
     }
+}
 
+impl KeyboardAugmenter {
     fn cluster_in_augmentation_map(&self, cluster: &str) -> bool {
         self.kb_augmentation_map.keys().any(|x| *x == cluster)
     }
+
     fn pick_replacement(&self, rng: &mut rand::rngs::ThreadRng) -> anyhow::Result<&str> {
         let count = self.kb_augmentation_map.len();
         let mut picks: Vec<i32> = Vec::with_capacity(count);

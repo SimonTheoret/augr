@@ -1,3 +1,4 @@
+mod error_strategy;
 mod augmenters;
 mod langs;
 
