@@ -14,3 +14,4 @@ pub(crate) enum Lang {
 }
 
 pub type KBAugmentationMap = HashMap<&'static str, Vec<&'static str>>;
+pub type OCRAugmentationMap = HashMap<&'static str, Vec<&'static str>>;

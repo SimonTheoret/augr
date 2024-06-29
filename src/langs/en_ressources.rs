@@ -1,4 +1,4 @@
-use crate::langs::KBAugmentationMap;
+use crate::langs::{KBAugmentationMap, OCRAugmentationMap};
 use std::collections::HashMap;
 
 #[rustfmt::skip]
@@ -46,4 +46,60 @@ pub(crate) fn keyboard_en() -> KBAugmentationMap {
         ("m", vec!["h", "j", "k", "n", ",", "<"])]
     );
     kb_en
+}
+#[rustfmt::skip]
+pub(crate) fn ocr_en() -> OCRAugmentationMap {
+    let ocr_en: HashMap<&'static str, Vec<&'static str>> = HashMap::from([
+        ("0", vec!["8", "9", "o", "O", "D"]),
+        ("8", vec!["9", "o", "O", "D", "0"]),
+        ("9", vec!["8", "o", "O", "D", "0"]),
+        ("o", vec!["8", "9", "O", "D", "0"]),
+        ("O", vec!["8", "9", "o", "D", "0"]),
+        ("D", vec!["8", "9", "o", "O", "0"]),
+
+        ("1", vec!["4", "7", "l", "I"]),
+        ("4", vec!["1", "7", "l", "I"]),
+        ("7", vec!["1", "4", "l", "I"]),
+        ("l", vec!["1", "4", "7", "I"]),
+        ("I", vec!["1", "4", "7", "l"]),
+
+        ("2", vec!["z", "Z"]),
+        ("z", vec!["2", "Z"]),
+        ("Z", vec!["z", "2"]),
+
+        ("5", vec!["8"]),
+        ("8", vec!["5"]),
+
+        ("6", vec!["b", "G"]),
+        ("b", vec!["6", "G"]),
+        ("G", vec!["b", "6"]),
+
+        ("8", vec!["s", "S", "@", "&"]),
+        ("s", vec!["8", "S", "@", "&"]),
+        ("S", vec!["s", "8", "@", "&"]),
+        ("@", vec!["s", "S", "8", "&"]),
+        ("&", vec!["s", "S", "@", "8"]),
+
+        ("9", vec!["g", "q"]),
+        ("g", vec!["9", "q"]),
+        ("q", vec!["g", "9"]),
+
+        ("o", vec!["u"]),
+        ("u", vec!["o"]),
+
+        ("r", vec!["k"]),
+        ("k", vec!["k"]),
+
+        ("C", vec!["G"]),
+        ("G", vec!["C"]),
+
+        ("O", vec!["D", "U"]),
+        ("D", vec!["O", "U"]),
+        ("U", vec!["D", "O"]),
+
+        ("E", vec!["B"]),
+        ("B", vec!["E"]),
+
+    ]);
+    ocr_en
 }
