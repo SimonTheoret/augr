@@ -1,16 +1,20 @@
+use crate::augmenters::Augmenter;
+use crate::augmenters::CharAugmenter;
 use crate::langs::OCRAugmentationMap;
-use derive_builder::Builder;
 
-#[derive(Builder, Debug)]
+#[derive(Debug, Clone)]
 struct OCRAugmenter {
-    content: Vec<String>,
-    modified_content: Vec<String>,
-    // List of augmentation to apply
-    ocr_augmentation_map: OCRAugmentationMap,
-    // Probability of applying an augmentation on a word
-    augmentation_proba: f32,
+    augmenter: CharAugmenter,
 }
 
-impl Augment for OCRAugmenter{
-    fn augment()
+impl std::ops::Deref for OCRAugmenter {
+    type Target = CharAugmenter;
+    fn deref(&self) -> &Self::Target {
+        &(self.augmenter)
+    }
+}
+impl Augmenter for OCRAugmenter {
+    fn augment(&mut self) -> anyhow::Result<()> {
+        self.augmenter.augment()
+    }
 }
