@@ -1,13 +1,9 @@
-use crate::langs::Lang;
+use crate::langs::KBAugmentationMap;
 use anyhow::anyhow;
 use derive_builder::Builder;
 use itertools::Itertools;
 use rand::Rng;
-use regex::Regex;
-use std::collections::HashMap;
 use unicode_segmentation::UnicodeSegmentation;
-
-type KBAugmentationMap = HashMap<&'static str, Vec<&'static str>>;
 
 #[derive(Builder, Debug)]
 struct KeyboardAugmenter {

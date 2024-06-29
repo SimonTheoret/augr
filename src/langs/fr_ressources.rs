@@ -1,7 +1,8 @@
+use crate::langs::KBAugmentationMap;
 use std::collections::HashMap;
 
 #[rustfmt::skip]
-pub(crate) fn keyboard_fr() -> HashMap<&'static str, Vec<&'static str>> {
+pub(crate) fn keyboard_fr() -> KBAugmentationMap {
     let kb_fr: HashMap<&'static str, Vec<&'static str>> = HashMap::from([
         ("&", vec!["1", "é", "2", "a", "z"]),
         ("é", vec!["2", "&", "1", "\"", "3", "a", "z", "e"]),
@@ -42,6 +43,7 @@ pub(crate) fn keyboard_fr() -> HashMap<&'static str, Vec<&'static str>> {
         ("2", vec!["1", "3", "a", "z"]),
         ("3", vec!["2", "4", "z", "e"]),
         ("4", vec!["3", "5", "e", "r"]),
-        ("5", vec!["4"])]);
+        ("5", vec!["4"])]
+     );
     kb_fr
 }

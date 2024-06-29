@@ -1,4 +1,4 @@
-use derive_builder::Builder;
+use std::collections::HashMap;
 
 #[cfg(feature = "fr")]
 pub(crate) mod fr_ressources;
@@ -12,3 +12,5 @@ pub(crate) enum Lang {
     EN,
     // ES, someday!
 }
+
+pub type KBAugmentationMap = HashMap<&'static str, Vec<&'static str>>;
