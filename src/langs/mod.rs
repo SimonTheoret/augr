@@ -13,5 +13,16 @@ pub(crate) enum Lang {
     // ES, someday!
 }
 
+impl Lang {
+    fn to_str(&self) -> &'static str {
+        std::stringify!(&self)
+    }
+}
+impl std::fmt::Display for Lang {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, std::stringify!(&self))
+    }
+}
+
 pub type KBAugmentationMap = HashMap<&'static str, Vec<&'static str>>;
 pub type OCRAugmentationMap = HashMap<&'static str, Vec<&'static str>>;
