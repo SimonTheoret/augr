@@ -14,30 +14,26 @@ pub(crate) enum ErrorStrategy {
 }
 
 impl ErrorStrategy {
-    pub fn apply<T>(
-        &mut self,
-        result: anyhow::Result<T>,
-        replacement: Option<T>,
-    ) -> anyhow::Result<T> {
+    pub fn apply<T>(&self, result: anyhow::Result<T>, replacement: Option<T>) -> anyhow::Result<T> {
         match self {
-            &mut ErrorStrategy::ReplaceError => Ok(replacement.unwrap()),
-            &mut ErrorStrategy::ReturnResult => result,
-            &mut ErrorStrategy::Panic => Ok(result.unwrap()),
-            &mut ErrorStrategy::ReturnWithTreshold { max, mut count } => match result {
+            ErrorStrategy::ReplaceError => Ok(replacement.unwrap()),
+            ErrorStrategy::ReturnResult => result,
+            ErrorStrategy::Panic => Ok(result.unwrap()),
+            ErrorStrategy::ReturnWithTreshold { max, mut count } => match result {
                 Ok(val) => Ok(val),
                 Err(e) => {
                     count += 1;
-                    if count > max {
+                    if count > *max {
                         panic!("Too many errors encountered. Last error: {}", e)
                     }
                     Err(e)
                 }
             },
-            &mut ErrorStrategy::ReplaceWithTreshold { max, mut count } => match result {
+            ErrorStrategy::ReplaceWithTreshold { max, mut count } => match result {
                 Ok(valr) => Ok(valr),
                 Err(er) => {
                     count += 1;
-                    if count > max {
+                    if count > *max {
                         panic!("Too many errors encountered. Last error: {}", er)
                     }
                     Ok(replacement.unwrap())
