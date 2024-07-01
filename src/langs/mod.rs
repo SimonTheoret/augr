@@ -1,3 +1,5 @@
+use en_ressources::keyboard_en;
+use fr_ressources::keyboard_fr;
 use std::collections::HashMap;
 
 #[cfg(feature = "fr")]
@@ -7,10 +9,19 @@ pub(crate) mod fr_ressources;
 pub(crate) mod en_ressources;
 
 #[derive(Debug, Clone)]
-pub(crate) enum Lang {
+pub enum Lang {
     FR,
     EN,
     // ES, someday!
+}
+
+impl Lang {
+    pub(crate) fn keyboard_map(&self) -> KBAugmentationMap {
+        match self {
+            Lang::FR => keyboard_fr(),
+            Lang::EN => keyboard_en(),
+        }
+    }
 }
 
 impl Lang {

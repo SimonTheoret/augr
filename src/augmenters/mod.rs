@@ -9,16 +9,16 @@ use unicode_segmentation::UnicodeSegmentation;
 mod keyboard;
 mod ocr;
 
-trait Augmenter {
+pub(crate) trait Augmenter {
     fn augment(&mut self) -> anyhow::Result<()>;
 }
 
 /// Structure capable of augmenting `content` at the character level. To be more precise, this
 /// struct acts at the (grapheme) cluster level.
 #[derive(Builder, Debug, Clone)]
-struct CharAugmenter {
+pub(crate) struct CharAugmenter {
     content: Vec<String>,
-    modified_content: Vec<String>,
+    pub modified_content: Vec<String>,
     // List of augmentation to apply
     augmentation_map: HashMap<&'static str, Vec<&'static str>>,
     // Probability of applying an augmentation on a word

@@ -1,6 +1,6 @@
 /// How to deal with errors in fallible functions.
 #[derive(Debug, Clone, Copy)]
-pub(crate) enum ErrorStrategy {
+pub enum ErrorStrategy {
     // Ignore errors and replace them by the given value
     ReplaceError,
     // Return the errors

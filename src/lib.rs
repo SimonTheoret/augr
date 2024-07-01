@@ -1,18 +1,33 @@
-mod error_strategy;
 mod augmenters;
+mod error_strategy;
 mod langs;
+use crate::augmenters::Augmenter;
+use crate::augmenters::{CharAugmenter, CharAugmenterBuilder};
+use crate::error_strategy::ErrorStrategy;
+use crate::langs::Lang;
+use std::error::Error;
+use std::result::Result;
 
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
+pub fn augment_kb(
+    content: Vec<String>,
+    lang: Lang,
+    proba: f32,
+    err_strategy: ErrorStrategy,
+) -> Result<Vec<String>, Box<dyn Error>> {
+    let mut builder = CharAugmenterBuilder::default();
+    let modif = vec![];
+    let aug_map = lang.keyboard_map();
+    let mut char_augmenter: CharAugmenter = builder
+        .content(content)
+        .modified_content(modif)
+        .augmentation_map(aug_map)
+        .augmentation_proba(proba)
+        .error_strategy(err_strategy)
+        .build()
+        .unwrap();
+    char_augmenter.augment()?;
+    Ok(char_augmenter.modified_content)
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+mod tests {}
