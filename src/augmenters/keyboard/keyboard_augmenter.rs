@@ -15,6 +15,9 @@ impl Augmenter for KeyboardAugmenter {
     fn augment(&mut self) -> anyhow::Result<()> {
         self.augmenter.augment()
     }
+    fn parallel_augment(&mut self) -> anyhow::Result<()> {
+        self.augmenter.parallel_augment()
+    }
 }
 
 // impl Augmenter for KeyboardAugmenter {

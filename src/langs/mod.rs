@@ -1,3 +1,5 @@
+mod en_ressources;
+mod fr_ressources;
 use en_ressources::keyboard_en;
 use fr_ressources::keyboard_fr;
 use std::collections::HashMap;

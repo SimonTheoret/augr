@@ -1,6 +1,5 @@
 use crate::augmenters::Augmenter;
 use crate::augmenters::CharAugmenter;
-use crate::langs::OCRAugmentationMap;
 
 #[derive(Debug, Clone)]
 struct OCRAugmenter {
@@ -15,6 +14,9 @@ impl std::ops::Deref for OCRAugmenter {
 }
 impl Augmenter for OCRAugmenter {
     fn augment(&mut self) -> anyhow::Result<()> {
+        self.augmenter.augment()
+    }
+    fn parallel_augment(&mut self) -> anyhow::Result<()> {
         self.augmenter.augment()
     }
 }
