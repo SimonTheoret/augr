@@ -1,1 +1,1 @@
-mod ocr_augmenter;
+pub(crate) mod ocr_augmenter;

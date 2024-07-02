@@ -1,1 +1,1 @@
-mod keyboard_augmenter;
+pub(crate) mod keyboard_augmenter;
