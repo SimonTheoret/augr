@@ -11,4 +11,8 @@ rand = "0.8.5"
 rayon = "1.10.0"
 unicode-segmentation = "1.11.0"
 
-
+[features]
+default = ["fr", "en", "parallel"]
+en = []
+fr = []
+parallel = []
