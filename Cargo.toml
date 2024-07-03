@@ -8,11 +8,11 @@ anyhow = "1.0.86"
 derive_builder = "0.20.0"
 itertools = "0.13.0"
 rand = "0.8.5"
-rayon = "1.10.0"
+rayon = {version ="1.10.0", optional = true}
 unicode-segmentation = "1.11.0"
 
 [features]
 default = ["fr", "en", "parallel"]
 en = []
 fr = []
-parallel = []
+parallel = ["dep:rayon"]

@@ -61,7 +61,7 @@ where
 }
 
 #[cfg(feature = "parallel")]
-pub fn augment_kb_parallel<'a, I, PI>(
+pub fn augment_ocr_parallel<'a, I, PI>(
     content: PI,
     lang: Lang,
     proba: f32,
